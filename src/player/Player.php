@@ -384,9 +384,12 @@ class Player extends Human implements CommandSender, ChunkListener, IPlayer, Nev
 					$this->callDummyItemHeldEvent();
 				}
 			},
-			function() : void{
-				$this->setUsingItem(false);
-				$this->callDummyItemHeldEvent();
+			function(Inventory $unused, array $oldContents) : void{
+				$heldIndex = $this->inventory->getHeldItemIndex();
+				if(!isset($oldContents[$heldIndex]) || !$oldContents[$heldIndex]->equalsExact($this->inventory->getItem($heldIndex))){
+					$this->setUsingItem(false);
+					$this->callDummyItemHeldEvent();
+				}
 			}
 		));
 
@@ -1740,9 +1743,13 @@ class Player extends Human implements CommandSender, ChunkListener, IPlayer, Nev
 	 *
 	 * @return bool if the consumption succeeded.
 	 */
-	public function consumeHeldItem() : bool{
+	public function consumeHeldItem() : int{
 		$slot = $this->inventory->getItemInHand();
 		if($slot instanceof ConsumableItem){
+			if($this->getItemUseDuration() < 32){
+				return 0;
+			}
+
 			$oldItem = clone $slot;
 
 			$residue = $slot->getResidue();
@@ -1753,7 +1760,7 @@ class Player extends Human implements CommandSender, ChunkListener, IPlayer, Nev
 			$ev->call();
 
 			if($ev->isCancelled() || !$this->consumeObject($slot)){
-				return false;
+				return 1;
 			}
 
 			$this->setUsingItem(false);
@@ -1762,10 +1769,10 @@ class Player extends Human implements CommandSender, ChunkListener, IPlayer, Nev
 			$slot->pop();
 			$this->returnItemsFromAction($oldItem, $slot, $ev->getResidue());
 
-			return true;
+			return 2;
 		}
 
-		return false;
+		return 1;
 	}
 
 	/**
@@ -1949,7 +1956,9 @@ class Player extends Human implements CommandSender, ChunkListener, IPlayer, Nev
 	 * @return bool if it did something
 	 */
 	public function interactBlock(Vector3 $pos, int $face, Vector3 $clickOffset) : bool{
-		$this->setUsingItem(false);
+		if(!($this->isUsingItem() && $this->inventory->getItemInHand() instanceof Releasable)){
+			$this->setUsingItem(false);
+		}
 
 		if($this->canInteract($pos->add(0.5, 0.5, 0.5), $this->isCreative() ? self::MAX_REACH_DISTANCE_CREATIVE : self::MAX_REACH_DISTANCE_SURVIVAL)){
 			$this->broadcastAnimation(new ArmSwingAnimation($this), $this->getViewers());
