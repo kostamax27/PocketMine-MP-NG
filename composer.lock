@@ -503,12 +503,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BridgeSplash/BedrockProtocol-NG.git",
-                "reference": "78e1fe6adea1e702bb0398eb8b383dae1a2d809d"
+                "reference": "e757e196e60c1b610ff795c0874ac6d73d09d4b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BridgeSplash/BedrockProtocol-NG/zipball/78e1fe6adea1e702bb0398eb8b383dae1a2d809d",
-                "reference": "78e1fe6adea1e702bb0398eb8b383dae1a2d809d",
+                "url": "https://api.github.com/repos/BridgeSplash/BedrockProtocol-NG/zipball/e757e196e60c1b610ff795c0874ac6d73d09d4b1",
+                "reference": "e757e196e60c1b610ff795c0874ac6d73d09d4b1",
                 "shasum": ""
             },
             "require": {
@@ -551,7 +551,7 @@
             "support": {
                 "source": "https://github.com/BridgeSplash/BedrockProtocol-NG/tree/master"
             },
-            "time": "2026-09-03T10:25:25+00:00"
+            "time": "2026-09-03T10:57:24+00:00"
         },
         {
             "name": "netresearch/jsonmapper",
