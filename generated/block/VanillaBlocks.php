@@ -730,8 +730,8 @@ final class VanillaBlocks{
 	private static Seagrass $_mSEAGRASS;
 	private static SeaLantern $_mSEA_LANTERN;
 	private static SeaPickle $_mSEA_PICKLE;
-	private static Opaque $_mSHROOMLIGHT;
 	private static DryGrass $_mSHORT_DRY_GRASS;
+	private static Opaque $_mSHROOMLIGHT;
 	private static ShulkerBox $_mSHULKER_BOX;
 	private static Slime $_mSLIME;
 	private static SmallDripleaf $_mSMALL_DRIPLEAF;
@@ -1574,8 +1574,8 @@ final class VanillaBlocks{
 			"seagrass" => fn(Seagrass $v) => self::$_mSEAGRASS = $v,
 			"sea_lantern" => fn(SeaLantern $v) => self::$_mSEA_LANTERN = $v,
 			"sea_pickle" => fn(SeaPickle $v) => self::$_mSEA_PICKLE = $v,
-			"shroomlight" => fn(Opaque $v) => self::$_mSHROOMLIGHT = $v,
 			"short_dry_grass" => fn(DryGrass $v) => self::$_mSHORT_DRY_GRASS = $v,
+			"shroomlight" => fn(Opaque $v) => self::$_mSHROOMLIGHT = $v,
 			"shulker_box" => fn(ShulkerBox $v) => self::$_mSHULKER_BOX = $v,
 			"slime" => fn(Slime $v) => self::$_mSLIME = $v,
 			"small_dripleaf" => fn(SmallDripleaf $v) => self::$_mSMALL_DRIPLEAF = $v,
@@ -5190,14 +5190,14 @@ final class VanillaBlocks{
 		return clone self::$_mSEA_PICKLE;
 	}
 
-	public static function SHROOMLIGHT() : Opaque{
-		if(!isset(self::$_mSHROOMLIGHT)){ self::init(); }
-		return clone self::$_mSHROOMLIGHT;
-	}
-
 	public static function SHORT_DRY_GRASS() : DryGrass{
 		if(!isset(self::$_mSHORT_DRY_GRASS)){ self::init(); }
 		return clone self::$_mSHORT_DRY_GRASS;
+	}
+
+	public static function SHROOMLIGHT() : Opaque{
+		if(!isset(self::$_mSHROOMLIGHT)){ self::init(); }
+		return clone self::$_mSHROOMLIGHT;
 	}
 
 	public static function SHULKER_BOX() : ShulkerBox{
