@@ -64,6 +64,9 @@ memory:
     chunk-radius: 4
 
 network:
+  #Which transports to listen on. NetherNet is only spoken by 1.26.50 and newer clients, older ones need RakNet.
+  #Options: both (default), raknet, nethernet
+  transport: both
   #Threshold for batching packets, in bytes. Only these packets will be compressed
   #Set to 0 to compress everything, -1 to disable.
   batch-threshold: 256

@@ -33,9 +33,11 @@
       "ext-zlib": ">=1.2.11",
       "composer-runtime-api": "^2.0",
       "adhocore/json-comment": "~1.2.0",
+      "altayofficial/network": "dev-main",
+      "altayofficial/webrtc": "^1.2.0",
       "axolotl-pm/bedrock-block-upgrade-schema": "~5.2.0+bedrock-1.21.110",
-      "nethergamesmc/bedrock-data": "dev-master",
       "axolotl-pm/bedrock-item-upgrade-schema": "1.18.0+bedrock-1.26.40",
+      "nethergamesmc/bedrock-data": "dev-master",
       "nethergamesmc/bedrock-protocol": "dev-master",
       "netresearch/jsonmapper": "~v6.0.0",
       "pocketmine/binaryutils": "^0.2.1",
@@ -45,10 +47,9 @@
       "pocketmine/log": "^0.4.0",
       "pocketmine/math": "~1.0.0",
       "pocketmine/nbt": "~1.2.0",
-      "pocketmine/raklib": "~1.2.0",
-      "pocketmine/raklib-ipc": "~1.0.0",
       "pocketmine/snooze": "^0.5.0",
       "ramsey/uuid": "~4.9.0",
+      "react/http": "^1.11",
       "symfony/filesystem": "~6.4.0"
    },
    "require-dev": {
@@ -103,12 +104,27 @@
    },
    "repositories": [
       {
+         "name": "altay-dtls",
          "type": "vcs",
-         "url":  "git@github.com:BridgeSplash/BedrockProtocol-NG.git"
+         "url": "https://github.com/altayofficial/dtls.git"
+      },
+      {
+         "name": "altay-webrtc",
+         "type": "vcs",
+         "url": "https://github.com/altayofficial/webrtc.git"
+      },
+      {
+         "name": "altay-network",
+         "type": "vcs",
+         "url": "https://github.com/altayofficial/Network.git"
       },
       {
          "type": "vcs",
-         "url":  "git@github.com:kostamax27/BedrockData-NG.git"
+         "url":  "https://github.com/BridgeSplash/BedrockProtocol-NG.git"
+      },
+      {
+         "type": "vcs",
+         "url":  "https://github.com/BridgeSplash/BedrockData-NG.git"
       }
    ]
 }

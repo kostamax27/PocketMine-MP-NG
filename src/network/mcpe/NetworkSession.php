@@ -222,7 +222,12 @@ class NetworkSession{
 		private Compressor $compressor,
 		private TypeConverter $typeConverter,
 		private string $ip,
-		private int $port
+		private int $port,
+		//NetherNet connections are already encrypted at the DTLS layer, vanilla clients don't use
+		//Bedrock-layer encryption on top of it
+		private bool $enableEncryption = true,
+		private ?string $expectedIdentityPublicKey = null,
+		private int $minimumProtocolId = 0
 	){
 		$this->logger = new \PrefixedLogger($this->server->getLogger(), $this->getLogPrefix());
 
@@ -335,6 +340,14 @@ class NetworkSession{
 
 	public function getPort() : int{
 		return $this->port;
+	}
+
+	/**
+	 * Lowest protocol version the transport this session arrived on is able to carry. Clients older than this can't
+	 * speak the transport at all, so they are rejected during the handshake.
+	 */
+	public function getMinimumProtocolId() : int{
+		return $this->minimumProtocolId;
 	}
 
 	public function getDisplayName() : string{
@@ -946,6 +959,8 @@ class NetworkSession{
 				$error = "Expected XUID but none found";
 			}elseif($clientPubKey === null){
 				$error = "Missing client public key"; //failsafe
+			}elseif($this->expectedIdentityPublicKey !== null && base64_encode($clientPubKey) !== $this->expectedIdentityPublicKey){
+				$error = "Login identity does not match the transport identity assertion";
 			}
 		}
 
@@ -1019,7 +1034,7 @@ class NetworkSession{
 			}
 		}
 
-		if(EncryptionContext::$ENABLED){
+		if(EncryptionContext::$ENABLED && $this->enableEncryption){
 			$this->server->getAsyncPool()->submitTask(new PrepareEncryptionTask($clientPubKey, function(string $encryptionKey, string $handshakeJwt) : void{
 				if(!$this->connected){
 					return;
